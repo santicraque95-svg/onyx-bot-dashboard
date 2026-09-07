@@ -1,11 +1,58 @@
-require("dotenv").config();
-const express=require("express"), path=require("path");
-const app=express(), PORT=process.env.PORT||3000, CLIENT_ID=process.env.CLIENT_ID;
-app.use(express.static(path.join(__dirname,"public")));
-app.get("/api/config",(req,res)=>{
- if(!CLIENT_ID)return res.status(500).json({error:"CLIENT_ID não configurado"});
- const invite=`https://discord.com/oauth2/authorize?client_id=${CLIENT_ID}&permissions=8&scope=bot%20applications.commands`;
- res.json({invite,commands:["/anunciar","/booster","/recrutamento","/recrutamento-staff","/tickets","/scrim","/tryout","/resultado","/match","/regras","/manutencao","/votacao","/info","/slowmode","/cargo","/nick","/socials","/site","/staff","/parceria"]});
+const http = require("http");
+const fs = require("fs");
+const path = require("path");
+
+const PORT = process.env.PORT || 3000;
+
+const server = http.createServer((req, res) => {
+    let filePath;
+
+    if (req.url === "/" || req.url === "") {
+        filePath = path.join(__dirname, "index.html");
+    } else {
+        filePath = path.join(__dirname, req.url);
+    }
+
+    // Segurança básica
+    if (!filePath.startsWith(__dirname)) {
+        res.writeHead(403);
+        res.end("Forbidden");
+        return;
+    }
+
+    fs.readFile(filePath, (err, data) => {
+        if (err) {
+            res.writeHead(404, {
+                "Content-Type": "text/plain; charset=utf-8"
+            });
+            res.end("Not Found");
+            return;
+        }
+
+        const ext = path.extname(filePath).toLowerCase();
+
+        const contentTypes = {
+            ".html": "text/html; charset=utf-8",
+            ".css": "text/css; charset=utf-8",
+            ".js": "application/javascript; charset=utf-8",
+            ".json": "application/json; charset=utf-8",
+            ".png": "image/png",
+            ".jpg": "image/jpeg",
+            ".jpeg": "image/jpeg",
+            ".gif": "image/gif",
+            ".svg": "image/svg+xml",
+            ".ico": "image/x-icon",
+            ".webp": "image/webp"
+        };
+
+        res.writeHead(200, {
+            "Content-Type": contentTypes[ext] || "application/octet-stream"
+        });
+
+        res.end(data);
+    });
 });
-app.get("*",(req,res)=>res.sendFile(path.join(__dirname,"public","index.html")));
-app.listen(PORT,()=>console.log(`Onyx Dashboard: http://localhost:${PORT}`));
+
+server.listen(PORT, "0.0.0.0", () => {
+    console.log(`Dashboard online na porta ${PORT}`);
+});
