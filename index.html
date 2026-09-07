@@ -1,20 +1,380 @@
-<!doctype html>
-<html lang="pt-PT"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Onyx e-Sports • Bot</title><link rel="stylesheet" href="/style.css"></head>
-<body><div class="glow"></div>
-<header><div class="brand"><div class="logo">O</div><div><b>ONYX</b><small>e-Sports • Bot</small></div></div><a id="invite1" class="btn" target="_blank">Adicionar ao Discord ↗</a></header>
-<main>
-<section class="hero"><span class="badge">● BOT ONLINE • ONYX E-SPORTS</span><h1>O teu servidor.<br><em>Mais organizado.</em></h1><p>Um bot feito para gerir, organizar e automatizar o servidor da Onyx e-Sports.</p><div class="actions"><a id="invite2" class="btn big" target="_blank">Adicionar ao Discord ↗</a><a href="#comandos" class="btn ghost big">Ver comandos</a></div></section>
-<section class="stats"><div><b id="count">0</b><small>Comandos</small></div><div><b>24/7</b><small>Disponibilidade</small></div><div><b>ONYX</b><small>Comunidade</small></div></section>
-<section id="comandos"><div class="head"><div><span> DASHBOARD</span><h2>Comandos do bot</h2></div><input id="search" placeholder="Pesquisar comando..."></div><div id="grid" class="grid"></div></section>
-<section class="cta"><div><span>PRONTO PARA COMEÇAR?</span><h2>Adiciona o bot ao teu servidor.</h2><p>Instala o bot e começa a usar os comandos.</p></div><a id="invite3" class="btn big" target="_blank">Adicionar ao Discord ↗</a></section>
-</main><footer>© 2026 Onyx e-Sports</footer>
-<script>
-let cmds=[];
-fetch("/api/config").then(r=>r.json()).then(d=>{
-cmds=d.commands;document.getElementById("count").textContent=cmds.length;
-["invite1","invite2","invite3"].forEach(x=>document.getElementById(x).href=d.invite);draw(cmds);
-});
-function draw(a){document.getElementById("grid").innerHTML=a.map(x=>`<article><strong>${x}</strong><small>Comando Onyx e-Sports</small></article>`).join("")}
-document.getElementById("search").oninput=e=>draw(cmds.filter(x=>x.toLowerCase().includes(e.target.value.toLowerCase())));
-</script></body></html>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ONYX e-Sports — Bot</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="logo.png">
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="brand">
+      <img src="logo.png" alt="ONYX e-Sports" class="logo">
+      <div>
+        <h2>ONYX</h2>
+        <span>e-Sports • Bot</span>
+      </div>
+    </div>
+
+    <a
+      class="discord-button"
+      href="https://discord.com/oauth2/authorize?client_id=1546280417949253703&permissions=8&integration_type=0&scope=bot%20applications.commands"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Adicionar ao Discord ↗
+    </a>
+  </header>
+
+
+  <!-- HERO -->
+  <main>
+
+    <section class="hero">
+
+      <div class="status">
+        <span class="status-dot"></span>
+        BOT ONLINE • ONYX E-SPORTS
+      </div>
+
+      <h1>
+        O teu servidor.<br>
+        <span>Mais organizado.</span>
+      </h1>
+
+      <p>
+        Um bot feito para gerir, organizar e automatizar
+        o servidor da Onyx e-Sports.
+      </p>
+
+      <div class="hero-buttons">
+
+        <a
+          class="primary-button"
+          href="https://discord.com/oauth2/authorize?client_id=1546280417949253703&permissions=8&integration_type=0&scope=bot%20applications.commands"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Adicionar ao Discord ↗
+        </a>
+
+        <a class="secondary-button" href="#comandos">
+          Ver comandos
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- STATS -->
+    <section class="stats">
+
+      <div class="stat-card">
+        <strong id="serverCount">—</strong>
+        <span>Servidores</span>
+      </div>
+
+      <div class="stat-card">
+        <strong id="commandCount">—</strong>
+        <span>Comandos</span>
+      </div>
+
+      <div class="stat-card">
+        <strong>ONYX</strong>
+        <span>e-Sports</span>
+      </div>
+
+    </section>
+
+
+    <!-- COMMANDS -->
+    <section id="comandos" class="commands-section">
+
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">COMANDOS</span>
+          <h2>Comandos do bot</h2>
+          <p>
+            Tudo o que precisas para gerir o teu servidor.
+          </p>
+        </div>
+
+        <input
+          type="text"
+          id="commandSearch"
+          placeholder="Pesquisar comando..."
+        >
+      </div>
+
+      <div id="commandsContainer" class="commands-grid">
+
+        <div class="loading">
+          A carregar comandos...
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- CTA -->
+    <section class="cta">
+
+      <span class="eyebrow">PRONTO PARA COMEÇAR?</span>
+
+      <h2>Adiciona o bot ao teu servidor.</h2>
+
+      <p>
+        Instala o bot e começa a usar os comandos.
+      </p>
+
+      <a
+        class="primary-button"
+        href="https://discord.com/oauth2/authorize?client_id=1546280417949253703&permissions=8&integration_type=0&scope=bot%20applications.commands"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Adicionar ao Discord ↗
+      </a>
+
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer>
+
+    <div>
+      <strong>ONYX e-Sports</strong>
+      <span>Bot oficial</span>
+    </div>
+
+    <div class="footer-links">
+
+      <a
+        href="https://discord.com/oauth2/authorize?client_id=1546280417949253703&permissions=8&integration_type=0&scope=bot%20applications.commands"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Discord
+      </a>
+
+      <a
+        href="https://www.tiktok.com/@blitz.rl.oficial"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        TikTok
+      </a>
+
+      <a
+        href="https://onyxesports.netlify.app"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Site
+      </a>
+
+    </div>
+
+    <span>© 2026 ONYX e-Sports</span>
+
+  </footer>
+
+
+  <script>
+
+    const commandsContainer =
+      document.getElementById("commandsContainer");
+
+    const commandSearch =
+      document.getElementById("commandSearch");
+
+    const commandCount =
+      document.getElementById("commandCount");
+
+    const serverCount =
+      document.getElementById("serverCount");
+
+
+    let commands = [];
+
+
+    async function loadConfig() {
+
+      try {
+
+        const response = await fetch("/api/config");
+
+        if (!response.ok) {
+          throw new Error("API indisponível");
+        }
+
+        const data = await response.json();
+
+        commands = Array.isArray(data.commands)
+          ? data.commands
+          : [];
+
+        commandCount.textContent =
+          commands.length || "0";
+
+        if (data.servers !== undefined) {
+          serverCount.textContent =
+            data.servers;
+        }
+
+        renderCommands(commands);
+
+      } catch (error) {
+
+        console.error(error);
+
+        /*
+         * Caso a API ainda não esteja configurada,
+         * mostramos os comandos principais.
+         */
+
+        commands = [
+          {
+            name: "socials",
+            description: "Mostra as redes sociais da ONYX."
+          },
+          {
+            name: "site",
+            description: "Mostra o site da ONYX e-Sports."
+          },
+          {
+            name: "staff",
+            description: "Mostra informações da Staff."
+          },
+          {
+            name: "parceria",
+            description: "Informações sobre parcerias."
+          }
+        ];
+
+        commandCount.textContent =
+          commands.length;
+
+        renderCommands(commands);
+      }
+
+    }
+
+
+    function renderCommands(list) {
+
+      if (!list.length) {
+
+        commandsContainer.innerHTML = `
+          <div class="empty">
+            Nenhum comando encontrado.
+          </div>
+        `;
+
+        return;
+      }
+
+
+      commandsContainer.innerHTML =
+        list.map(command => {
+
+          const name =
+            command.name ||
+            command.command ||
+            "comando";
+
+          const description =
+            command.description ||
+            "Sem descrição disponível.";
+
+          return `
+            <div class="command-card">
+
+              <div class="command-icon">
+                /
+              </div>
+
+              <div class="command-info">
+
+                <h3>/${escapeHtml(name)}</h3>
+
+                <p>
+                  ${escapeHtml(description)}
+                </p>
+
+              </div>
+
+            </div>
+          `;
+
+        }).join("");
+
+    }
+
+
+    commandSearch.addEventListener(
+      "input",
+      function () {
+
+        const search =
+          this.value
+            .toLowerCase()
+            .trim();
+
+        const filtered =
+          commands.filter(command => {
+
+            const name =
+              (
+                command.name ||
+                command.command ||
+                ""
+              ).toLowerCase();
+
+            const description =
+              (
+                command.description ||
+                ""
+              ).toLowerCase();
+
+            return (
+              name.includes(search) ||
+              description.includes(search)
+            );
+
+          });
+
+        renderCommands(filtered);
+
+      }
+    );
+
+
+    function escapeHtml(text) {
+
+      return String(text)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+    }
+
+
+    loadConfig();
+
+  </script>
+
+</body>
+</html>
